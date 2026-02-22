@@ -258,7 +258,7 @@ export function ProfileHero() {
             </div>
 
             {/* Experience */}
-            <div className="border border-[var(--accent)]/50 rounded px-8 py-6">
+            <div className="border border-[var(--accent)]/50 rounded px-4 py-4 md:px-8 md:py-6">
               <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
                 <span>│</span> EXPERIENCE
               </div>
@@ -278,7 +278,7 @@ export function ProfileHero() {
             </div>
 
             {/* Education */}
-            <div className="border border-[var(--accent)]/50 rounded px-8 py-6">
+            <div className="border border-[var(--accent)]/50 rounded px-4 py-4 md:px-8 md:py-6">
               <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
                 <span>│</span> EDUCATION
               </div>
@@ -342,7 +342,7 @@ export function ProfileHero() {
       <section>
         <CommandLine command="cat /proc/skills | sort -rn" />
         <motion.div
-          className="border border-[var(--accent)]/40 rounded px-8 py-6"
+          className="border border-[var(--accent)]/40 rounded px-4 py-4 md:px-8 md:py-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -354,10 +354,10 @@ export function ProfileHero() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1.5 font-mono text-sm">
             {topSkills.map((skill, i) => (
               <div key={skill.name} className="flex items-center gap-2 overflow-hidden">
-                <span className="text-[var(--text)] w-48 shrink-0 truncate">
+                <span className="text-[var(--text)] w-28 md:w-48 shrink-0 truncate">
                   {skill.name}
                 </span>
-                <AnimatedBar level={skill.level} delay={300 + i * 80} />
+                <AnimatedBar level={skill.level} delay={300 + i * 80} barWidth={10} />
               </div>
             ))}
           </div>
@@ -378,7 +378,7 @@ export function ProfileHero() {
             <motion.div
               key={project.name}
               variants={fadeInUp}
-              className="border border-[var(--accent)]/30 rounded px-8 py-6
+              className="border border-[var(--accent)]/30 rounded px-4 py-4 md:px-8 md:py-6
                          hover:border-[var(--accent)]/70 hover:-translate-y-0.5
                          transition-all duration-200"
             >
@@ -402,7 +402,7 @@ export function ProfileHero() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Certifications */}
           <motion.div
-            className="border border-[var(--accent)]/40 rounded px-8 py-6"
+            className="border border-[var(--accent)]/40 rounded px-4 py-4 md:px-8 md:py-6"
             variants={slideInLeft}
             initial="hidden"
             whileInView="visible"
@@ -429,7 +429,7 @@ export function ProfileHero() {
 
           {/* Languages */}
           <motion.div
-            className="border border-[var(--accent)]/40 rounded px-8 py-6"
+            className="border border-[var(--accent)]/40 rounded px-4 py-4 md:px-8 md:py-6"
             variants={slideInRight}
             initial="hidden"
             whileInView="visible"
@@ -442,12 +442,12 @@ export function ProfileHero() {
               {profile.languages.map((lang) => {
                 const level = languageLevelMap[lang.level] ?? 50;
                 return (
-                  <div key={lang.name} className="flex items-center gap-3">
-                    <span className="text-[var(--text)] w-24 shrink-0">
+                  <div key={lang.name} className="flex items-center gap-2 md:gap-3">
+                    <span className="text-[var(--text)] w-20 md:w-24 shrink-0 truncate">
                       {lang.name}
                     </span>
-                    <AnimatedBar level={level} delay={200} barWidth={10} />
-                    <span className="text-[var(--text-dim)] text-xs shrink-0">
+                    <AnimatedBar level={level} delay={200} barWidth={8} />
+                    <span className="text-[var(--text-dim)] text-xs shrink-0 hidden sm:inline">
                       {lang.level}
                     </span>
                   </div>

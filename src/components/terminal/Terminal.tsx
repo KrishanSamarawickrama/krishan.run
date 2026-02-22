@@ -73,8 +73,7 @@ export function Terminal() {
 
   return (
     <div
-      style={{ height: '100vh', width: '100vw', padding: '20px', background: '#000', boxSizing: 'border-box', maxWidth: '1440px', margin: '0 auto' }}
-      className="text-[var(--text)] font-mono"
+      className="h-screen w-screen max-w-[1440px] mx-auto p-2 md:p-5 bg-black box-border text-[var(--text)] font-mono"
     >
       <div className="w-full h-full bg-[var(--bg)] flex flex-col overflow-hidden rounded-lg border border-[var(--text-dim)]/30">
       {/* Terminal Title Bar */}
@@ -103,8 +102,7 @@ export function Terminal() {
         {/* Terminal Body */}
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto"
-          style={{ padding: '28px 40px' }}
+          className="flex-1 overflow-y-auto px-4 py-5 md:px-10 md:py-7"
         >
           <ProfileHero />
 
