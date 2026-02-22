@@ -69,10 +69,25 @@ export function Terminal() {
 
   return (
     <div
-      style={{ height: '100vh', width: '100vw', padding: '20px', background: '#000', boxSizing: 'border-box' }}
+      style={{ height: '100vh', width: '100vw', padding: '20px', background: '#000', boxSizing: 'border-box', maxWidth: '1440px', margin: '0 auto' }}
       className="text-[var(--text)] font-mono"
     >
       <div className="w-full h-full bg-[var(--bg)] flex flex-col overflow-hidden rounded-lg border border-[var(--text-dim)]/30">
+      {/* Terminal Title Bar */}
+      <div
+        className="flex items-center px-4 py-2 bg-[var(--bg-secondary)] border-b border-dashed border-[var(--text-dim)]/30 shrink-0"
+      >
+        <div className="flex gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+          <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+          <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+        </div>
+        <span className="flex-1 text-center text-xs text-[var(--text-dim)]">
+          visitor@krishan.run: ~
+        </span>
+        <div className="w-[52px]" />
+      </div>
+
       <CRTEffect enabled={crtEnabled} />
       <MatrixRain enabled={theme.name === 'matrix'} />
 
