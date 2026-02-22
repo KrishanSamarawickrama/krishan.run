@@ -9,18 +9,15 @@ export const profile = {
   github: 'https://github.com/KrishanSamarawickrama',
   linkedin: 'https://linkedin.com/in/krishansamarawickrama',
 
-  summary: 'Versatile technical leader with 10+ years of experience architecting and delivering scalable software solutions across healthcare, insurance, government, and enterprise domains. Deep expertise in C#/.NET ecosystem, cloud-native architectures, and data analytics. Passionate about mentorship, innovation, and building high-performing engineering teams.',
+  summary: 'Technical Lead at Rootcode with over 10 years in software development. Skilled in C#, ASP.NET, SQL, Docker, and cloud technologies. Passionate about driving innovation and solving complex problems.',
 
   about: [
-    'Versatile technical leader with 10+ years of experience',
-    'architecting and delivering scalable software solutions',
-    'across healthcare, insurance, government, and enterprise',
-    'domains.',
+    'Technical Lead at Rootcode with over 10 years in',
+    'software development. Skilled in C#, ASP.NET, SQL,',
+    'Docker, and cloud technologies.',
     '',
-    'Deep expertise in C#/.NET ecosystem, cloud-native',
-    'architectures, and data analytics. Passionate about',
-    'mentorship, innovation, and building high-performing',
-    'engineering teams.',
+    'Passionate about driving innovation and solving',
+    'complex problems.',
   ],
 
   stats: [
@@ -204,9 +201,9 @@ export const profile = {
 
   certifications: [
     { name: 'Google Data Analytics Certificate', issuer: 'Google', year: '2023' },
-    { name: 'Software Architecture: Developer to Architect', issuer: 'Udemy', year: '2022' },
-    { name: 'ASP.NET Core Web App Development', issuer: 'Microsoft', year: '2021' },
-    { name: 'C# Certification', issuer: 'Microsoft', year: '2020' },
+    { name: 'Software Architecture: From Developer to Architect', issuer: 'Udemy', year: '2022' },
+    { name: 'Develop an ASP.NET Core web app that consumes an API', issuer: 'Microsoft', year: '2021' },
+    { name: 'C# Certificate', issuer: 'Microsoft', year: '2020' },
   ],
 
   honors: [
@@ -243,9 +240,9 @@ export const profile = {
   ],
 
   languages: [
-    { name: 'English', level: 'Professional' },
-    { name: 'Sinhalese', level: 'Native' },
-    { name: 'Tamil', level: 'Working' },
+    { name: 'English', level: 'Full Professional' },
+    { name: 'Sinhalese', level: 'Native or Bilingual' },
+    { name: 'Tamil', level: 'Limited Working' },
   ],
 
   interests: ['.NET Ecosystem', 'Cloud Computing', 'Data Science', 'Community Tech'],

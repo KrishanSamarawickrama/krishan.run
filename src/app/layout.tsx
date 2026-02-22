@@ -46,14 +46,14 @@ export default function RootLayout({
         </TerminalProvider>
         <noscript>
           <div style={{ padding: '2rem', fontFamily: 'monospace', maxWidth: '800px', margin: '0 auto' }}>
-            <h1>Krishan Samarawickrama — Software Engineer</h1>
+            <h1>Krishan Samarawickrama — Senior Technical Lead</h1>
             <p>This interactive terminal portfolio requires JavaScript.</p>
             <h2>About</h2>
-            <p>Software Engineer with a passion for building elegant, performant, and user-centric applications.</p>
+            <p>Technical Lead at Rootcode with over 10 years in software development. Skilled in C#, ASP.NET, SQL, Docker, and cloud technologies. Passionate about driving innovation and solving complex problems.</p>
             <h2>Skills</h2>
-            <p>TypeScript, JavaScript, Python, React, Next.js, Node.js, PostgreSQL, Docker, AWS</p>
+            <p>C#, .NET, ASP.NET, Azure, Angular, SQL Server, Docker, Power BI</p>
             <h2>Contact</h2>
-            <p>Email: hello@krishan.run | GitHub: github.com/krishan | LinkedIn: linkedin.com/in/krishan</p>
+            <p>Email: Krishan.Samarawickrama@outlook.com | GitHub: github.com/KrishanSamarawickrama | LinkedIn: linkedin.com/in/krishansamarawickrama</p>
           </div>
         </noscript>
       </body>

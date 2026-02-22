@@ -34,9 +34,9 @@ const slideInRight = {
 // ── Helpers ──────────────────────────────────────────────────────────────
 
 const languageLevelMap: Record<string, number> = {
-  Native: 100,
-  Professional: 85,
-  Working: 60,
+  'Native or Bilingual': 100,
+  'Full Professional': 85,
+  'Limited Working': 60,
 };
 
 function getTopSkills(n: number) {
@@ -133,14 +133,14 @@ const infoLines = [
 ];
 
 const condensedExperience = [
-  { role: 'Senior Technical Lead', company: 'Current', period: '2022 – Present' },
-  { role: 'Software Architect', company: 'Previous', period: '2019 – 2022' },
-  { role: 'Lead Developer', company: 'Earlier', period: '2016 – 2019' },
+  { role: 'Senior Technical Lead', company: 'Rootcode', period: '2025 – Present' },
+  { role: 'Technical Lead', company: 'Rootcode', period: '2023 – 2025' },
+  { role: 'Associate Technical Lead', company: 'Rootcode', period: '2021 – 2023' },
 ];
 
 const condensedEducation = [
-  { degree: 'M.Sc. Computer Science', school: 'University', year: '2016' },
-  { degree: 'B.Sc. Computer Science', school: 'University', year: '2014' },
+  { degree: 'M.Sc. Data Science', school: 'Cardiff Metropolitan', year: '2024 – 2025' },
+  { degree: 'B.Sc. Computer Science', school: 'University College Dublin', year: '2012 – 2014' },
 ];
 
 function Prompt() {
@@ -192,7 +192,7 @@ export function ProfileHero() {
   const topSkills = getTopSkills(10);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       {/* ══════════ Section 1: Neofetch Hero ══════════ */}
       <section>
         <div className="mb-4">
@@ -216,23 +216,16 @@ export function ProfileHero() {
                   </div>
                 ) : (
                   <img
-                    src="/profile.jpg"
+                    src="/images/profile.png"
                     alt={profile.name}
                     onError={() => setImgError(true)}
                     className="w-full h-full object-cover"
                     style={{
                       filter:
-                        'grayscale(1) brightness(1.3) sepia(1) hue-rotate(80deg) saturate(5) contrast(1.4)',
+                        'grayscale(1) brightness(1.1) sepia(0.4) hue-rotate(80deg) saturate(1.5) contrast(1.1)',
                     }}
                   />
                 )}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
-                  }}
-                />
               </div>
             </div>
 
@@ -265,7 +258,7 @@ export function ProfileHero() {
             </div>
 
             {/* Experience */}
-            <div className="border border-[var(--accent)]/50 rounded px-6 py-5">
+            <div className="border border-[var(--accent)]/50 rounded px-8 py-6">
               <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
                 <span>│</span> EXPERIENCE
               </div>
@@ -285,7 +278,7 @@ export function ProfileHero() {
             </div>
 
             {/* Education */}
-            <div className="border border-[var(--accent)]/50 rounded px-6 py-5">
+            <div className="border border-[var(--accent)]/50 rounded px-8 py-6">
               <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
                 <span>│</span> EDUCATION
               </div>
@@ -349,7 +342,7 @@ export function ProfileHero() {
       <section>
         <CommandLine command="cat /proc/skills | sort -rn" />
         <motion.div
-          className="border border-[var(--accent)]/40 rounded p-5"
+          className="border border-[var(--accent)]/40 rounded px-8 py-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -385,7 +378,7 @@ export function ProfileHero() {
             <motion.div
               key={project.name}
               variants={fadeInUp}
-              className="border border-[var(--accent)]/30 rounded p-4
+              className="border border-[var(--accent)]/30 rounded px-8 py-6
                          hover:border-[var(--accent)]/70 hover:-translate-y-0.5
                          transition-all duration-200"
             >
@@ -409,7 +402,7 @@ export function ProfileHero() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Certifications */}
           <motion.div
-            className="border border-[var(--accent)]/40 rounded p-5"
+            className="border border-[var(--accent)]/40 rounded px-8 py-6"
             variants={slideInLeft}
             initial="hidden"
             whileInView="visible"
@@ -436,7 +429,7 @@ export function ProfileHero() {
 
           {/* Languages */}
           <motion.div
-            className="border border-[var(--accent)]/40 rounded p-5"
+            className="border border-[var(--accent)]/40 rounded px-8 py-6"
             variants={slideInRight}
             initial="hidden"
             whileInView="visible"
@@ -465,65 +458,20 @@ export function ProfileHero() {
         </div>
       </section>
 
-      {/* ══════════ Section 6: Availability Status ══════════ */}
+      {/* ══════════ Section 6: Try Commands Hint ══════════ */}
       <section>
-        <CommandLine command="uptime" />
         <motion.div
-          className="border border-[var(--accent)]/30 rounded p-5"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
-            <div className="flex items-center gap-2">
-              <motion.span
-                className="inline-block w-2.5 h-2.5 rounded-full bg-[var(--accent)]"
-                animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ boxShadow: '0 0 8px var(--accent)' }}
-              />
-              <span className="text-[var(--accent)] font-bold text-glow-sm">
-                Online
-              </span>
-            </div>
-            <span className="text-[var(--text)] text-sm">
-              STATUS: OPEN TO OPPORTUNITIES · UPTIME: 10+ yrs
-            </span>
+          <div className="text-[var(--text-dim)] text-sm font-mono">
+            Type <span className="text-[var(--accent)] font-bold text-glow-sm">help</span> for more commands            
           </div>
-          <AvailabilityBar />
         </motion.div>
       </section>
     </div>
   );
 }
 
-// ── Availability Bar ────────────────────────────────────────────────────
-
-function AvailabilityBar() {
-  const [width, setWidth] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!inView) return;
-    const timeout = setTimeout(() => setWidth(100), 100);
-    return () => clearTimeout(timeout);
-  }, [inView]);
-
-  return (
-    <div
-      ref={ref}
-      className="w-full h-3 rounded-full bg-[var(--bg-secondary)] border border-[var(--accent)]/20 overflow-hidden"
-    >
-      <div
-        className="h-full rounded-full transition-all duration-[1500ms] ease-out"
-        style={{
-          width: `${width}%`,
-          backgroundColor: 'color-mix(in srgb, var(--accent) 70%, transparent)',
-          boxShadow: '0 0 12px var(--accent), 0 0 4px var(--accent)',
-        }}
-      />
-    </div>
-  );
-}
