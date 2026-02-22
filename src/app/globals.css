@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0e14;
+  --bg-secondary: #111820;
+  --text: #33ff33;
+  --text-dim: #1a8a1a;
+  --accent: #00ff88;
+  --prompt: #5599ff;
+  --error: #ff3333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-dim) var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 13px;
+  }
+}
+
+/* Text glow effect */
+.text-glow {
+  text-shadow: 0 0 8px var(--text), 0 0 2px var(--text);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Scrollbar styling for WebKit */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-dim);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text);
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Link styles */
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  filter: brightness(1.2);
+}
+
+/* Input caret color */
+input {
+  caret-color: var(--text);
+}
+
+input::placeholder {
+  color: var(--text-dim);
+  opacity: 0.5;
+}
