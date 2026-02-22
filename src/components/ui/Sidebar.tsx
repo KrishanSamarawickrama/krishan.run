@@ -1,14 +1,11 @@
 'use client';
 
 const fileTree = [
-  { name: 'about.md', command: 'about', prefix: '── ', isDir: false },
-  { name: 'skills.json', command: 'skills', prefix: '── ', isDir: false },
-  { name: 'experience.json', command: 'experience', prefix: '── ', isDir: false },
-  { name: 'education.json', command: 'education', prefix: '── ', isDir: false },
-  { name: 'projects/', command: 'projects', prefix: '── ', isDir: true },
-  { name: 'project1.sh', command: 'projects', prefix: '   ├── ', isDir: false },
-  { name: 'project2.py', command: 'projects', prefix: '   ├── ', isDir: false },
-  { name: 'project3.go', command: 'projects', prefix: '   └── ', isDir: false },
+  { name: 'about.md', command: 'about', prefix: '── ' },
+  { name: 'skills.json', command: 'skills', prefix: '── ' },
+  { name: 'experience.json', command: 'experience', prefix: '── ' },
+  { name: 'education.json', command: 'education', prefix: '── ' },
+  { name: 'projects/', command: 'projects', prefix: '── ' },
 ];
 
 interface SidebarProps {
@@ -30,11 +27,7 @@ export function Sidebar({ onCommand }: SidebarProps) {
               e.stopPropagation();
               onCommand(item.command);
             }}
-            className={`block w-full text-left text-base font-mono rounded px-2 py-1 transition-colors cursor-pointer hover:bg-[var(--text-dim)]/10 ${
-              item.isDir
-                ? 'text-[var(--accent)] font-bold hover:brightness-125'
-                : 'text-[var(--text-dim)] hover:text-[var(--accent)]'
-            }`}
+            className="block w-full text-left text-base font-mono rounded px-2 py-1 transition-colors cursor-pointer hover:bg-[var(--text-dim)]/10 text-[var(--text-dim)] hover:text-[var(--accent)]"
           >
             <span className="opacity-40">{item.prefix}</span>
             {item.name}
