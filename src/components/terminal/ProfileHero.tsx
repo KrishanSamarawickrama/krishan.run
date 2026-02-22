@@ -1,7 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { profile } from '@/lib/data/profile';
+
+// ── Animation Variants ──────────────────────────────────────────────────
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const fadeInScale = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+};
+
+const slideInLeft = {
+  hidden: { opacity: 0, x: -40 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+};
+
+const slideInRight = {
+  hidden: { opacity: 0, x: 40 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+};
+
+// ── Helpers ──────────────────────────────────────────────────────────────
+
+const languageLevelMap: Record<string, number> = {
+  Native: 100,
+  Professional: 85,
+  Working: 60,
+};
+
+function getTopSkills(n: number) {
+  const all: { name: string; level: number }[] = [];
+  for (const skills of Object.values(profile.skills)) {
+    for (const skill of skills) {
+      if (skill.level >= 80) all.push(skill);
+    }
+  }
+  return all.sort((a, b) => b.level - a.level).slice(0, n);
+}
+
+function renderBarChars(level: number, width = 20): string {
+  const filled = Math.round((level / 100) * width);
+  const empty = width - filled;
+  return '█'.repeat(filled) + '░'.repeat(empty);
+}
+
+// ── Counter Hook ─────────────────────────────────────────────────────────
+
+function useCountUp(target: number, duration = 1500) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    const start = performance.now();
+    function tick(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, [inView, target, duration]);
+
+  return { count, ref };
+}
+
+// ── Animated Progress Bar ────────────────────────────────────────────────
+
+function AnimatedBar({
+  level,
+  delay = 0,
+  barWidth = 20,
+}: {
+  level: number;
+  delay?: number;
+  barWidth?: number;
+}) {
+  const [current, setCurrent] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    const timeout = setTimeout(() => {
+      const start = performance.now();
+      function tick(now: number) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / 1000, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCurrent(Math.round(eased * level));
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [inView, level, delay]);
+
+  return (
+    <span ref={ref} className="text-[var(--accent)]">
+      [{renderBarChars(current, barWidth)}] {current}%
+    </span>
+  );
+}
+
+// ── Sub-Components ──────────────────────────────────────────────────────
 
 const infoLines = [
   { label: 'User', value: profile.name },
@@ -17,29 +132,6 @@ const infoLines = [
   { label: 'Memory', value: 'Unlimited Learning' },
 ];
 
-const condensedExperience = [
-  {
-    title: `Senior Technical Lead @ ${profile.company}`,
-    period: '2019-Present',
-    desc: 'Architecting scalable software solutions, leadership, mentorship. C#, .NET, Azure, SQL.',
-  },
-  {
-    title: 'Software Architect',
-    period: '2016-2019',
-    desc: 'Enterprise domains, cloud-native architectures.',
-  },
-  {
-    title: 'Lead Developer',
-    period: '2013-2016',
-    desc: 'Data analytics, innovation. Python, Java.',
-  },
-];
-
-const condensedEducation = [
-  { text: `${profile.education[0].degree}, ${profile.education[0].institution}` },
-  { text: `${profile.education[1].degree}, ${profile.education[1].institution}` },
-];
-
 function Prompt() {
   return (
     <span className="whitespace-nowrap">
@@ -53,116 +145,323 @@ function Prompt() {
   );
 }
 
-export function ProfileHero() {
-  const [imgError, setImgError] = useState(false);
+function CommandLine({ command }: { command: string }) {
+  return (
+    <div className="mb-4">
+      <Prompt />
+      <span>{command}</span>
+    </div>
+  );
+}
+
+function StatCounter({ label, value }: { label: string; value: string }) {
+  const numeric = parseInt(value);
+  const suffix = value.replace(/\d+/, '');
+  const { count, ref } = useCountUp(isNaN(numeric) ? 0 : numeric);
 
   return (
-    <div className="mb-8">
-      {/* $ neofetch */}
-      <div className="mb-4">
-        <span className="text-[var(--accent)] text-glow-sm">$</span> neofetch
+    <div className="text-center">
+      <span
+        ref={ref}
+        className="text-2xl md:text-3xl font-bold text-[var(--accent)] text-glow"
+      >
+        {isNaN(numeric) ? value : `${count}${suffix}`}
+      </span>
+      <div className="text-xs text-[var(--text-dim)] mt-1 tracking-wider">
+        {label}
       </div>
+    </div>
+  );
+}
 
-      {/* Two-column layout: Profile left, Experience/Education right */}
-      <div className="flex flex-col lg:flex-row gap-8 mb-8">
+// ── Main Component ──────────────────────────────────────────────────────
 
-        {/* Left Column: Portrait + System Info */}
-        <div className="shrink-0">
-          <div className="flex gap-8 items-start">
-            {/* Portrait — desktop only */}
-            <div className="hidden md:block shrink-0">
-              <div className="relative w-52 h-60 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden">
-                {imgError ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                    <div className="text-[var(--accent)] text-6xl font-bold text-glow tracking-widest">
-                      KS
-                    </div>
-                    <div className="text-[var(--text-dim)] text-sm tracking-wider">
-                      krishan.run
-                    </div>
+export function ProfileHero() {
+  const [imgError, setImgError] = useState(false);
+  const topSkills = getTopSkills(10);
+
+  return (
+    <div className="space-y-10">
+      {/* ══════════ Section 1: Neofetch Hero ══════════ */}
+      <section>
+        <div className="mb-4">
+          <span className="text-[var(--accent)] text-glow-sm">$</span> neofetch
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          {/* Portrait */}
+          <div className="hidden md:block shrink-0">
+            <div className="relative w-52 h-60 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden">
+              {imgError ? (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+                  <div className="text-[var(--accent)] text-6xl font-bold text-glow tracking-widest">
+                    KS
                   </div>
-                ) : (
-                  <img
-                    src="/profile.jpg"
-                    alt={profile.name}
-                    onError={() => setImgError(true)}
-                    className="w-full h-full object-cover"
-                    style={{
-                      filter: 'grayscale(1) brightness(1.3) sepia(1) hue-rotate(80deg) saturate(5) contrast(1.4)',
-                    }}
-                  />
-                )}
-                {/* Scanline overlay */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
+                  <div className="text-[var(--text-dim)] text-sm tracking-wider">
+                    krishan.run
+                  </div>
+                </div>
+              ) : (
+                <img
+                  src="/profile.jpg"
+                  alt={profile.name}
+                  onError={() => setImgError(true)}
+                  className="w-full h-full object-cover"
                   style={{
-                    background:
-                      'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
+                    filter:
+                      'grayscale(1) brightness(1.3) sepia(1) hue-rotate(80deg) saturate(5) contrast(1.4)',
                   }}
                 />
-              </div>
-            </div>
-
-            {/* System Info */}
-            <div className="font-mono min-w-0">
-              <div className="space-y-0.5 leading-relaxed">
-                {infoLines.map((line, i) => (
-                  <div key={i}>
-                    {line.label ? (
-                      <>
-                        <span className="text-[var(--accent)] font-bold text-glow-sm">{line.label}</span>
-                        <span className="text-[var(--text)]">: {line.value}</span>
-                      </>
-                    ) : (
-                      <span>&nbsp;</span>
-                    )}
-                  </div>
-                ))}
-              </div>
+              )}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
+                }}
+              />
             </div>
           </div>
-        </div>
 
-        {/* Right Column: Experience + Education stacked */}
-        <div className="flex-1 flex flex-col gap-5 min-w-0">
-          {/* cat experience.json */}
-          <div>
-            <Prompt />
-            <span>cat experience.json</span>
-          </div>
-
-          {/* Experience Box */}
-          <div className="border border-[var(--accent)]/50 rounded px-6 py-5">
-            <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
-              <span className="text-[var(--accent)]">│</span> EXPERIENCE
-            </div>
-            <div className="space-y-5 leading-relaxed">
-              {condensedExperience.map((exp, i) => (
+          {/* System Info */}
+          <div className="font-mono min-w-0">
+            <div className="space-y-0.5 leading-relaxed">
+              {infoLines.map((line, i) => (
                 <div key={i}>
-                  <span className="text-[var(--accent)] font-bold">{exp.title}</span>
-                  <span className="text-[var(--text-dim)]"> ({exp.period})</span>
-                  <span className="text-[var(--text)]">: {exp.desc}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Education Box */}
-          <div className="border border-[var(--accent)]/50 rounded px-6 py-5">
-            <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
-              <span className="text-[var(--accent)]">│</span> EDUCATION
-            </div>
-            <div className="space-y-4 leading-relaxed">
-              {condensedEducation.map((edu, i) => (
-                <div key={i} className="text-[var(--text)]">
-                  {edu.text}
+                  {line.label ? (
+                    <>
+                      <span className="text-[var(--accent)] font-bold text-glow-sm">
+                        {line.label}
+                      </span>
+                      <span className="text-[var(--text)]">: {line.value}</span>
+                    </>
+                  ) : (
+                    <span>&nbsp;</span>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-      </div>
+        {/* Stats Row */}
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 py-4 border-t border-b border-[var(--accent)]/20"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {profile.stats.map((stat, i) => (
+            <motion.div key={i} variants={fadeInUp}>
+              <StatCounter label={stat.label} value={stat.value} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ══════════ Section 2: Top Skills Tags ══════════ */}
+      <section>
+        <CommandLine command="echo $SKILLS" />
+        <motion.div
+          className="flex flex-wrap gap-3"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {profile.topSkills.map((skill) => (
+            <motion.span
+              key={skill}
+              variants={fadeInScale}
+              className="px-4 py-1.5 border border-[var(--accent)]/60 rounded text-sm text-[var(--accent)] font-mono
+                         hover:border-[var(--accent)] hover:shadow-[0_0_8px_var(--accent)] transition-all duration-200 cursor-default"
+            >
+              [ {skill} ]
+            </motion.span>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ══════════ Section 3: Skills Matrix ══════════ */}
+      <section>
+        <CommandLine command="cat /proc/skills | sort -rn" />
+        <motion.div
+          className="border border-[var(--accent)]/40 rounded p-5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
+            <span>│</span> CAPABILITIES
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1.5 font-mono text-sm">
+            {topSkills.map((skill, i) => (
+              <div key={skill.name} className="flex items-center gap-2 overflow-hidden">
+                <span className="text-[var(--text)] w-48 shrink-0 truncate">
+                  {skill.name}
+                </span>
+                <AnimatedBar level={skill.level} delay={300 + i * 80} />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ══════════ Section 4: Project Domain Cards ══════════ */}
+      <section>
+        <CommandLine command="ls ~/projects/" />
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {profile.projects.map((project) => (
+            <motion.div
+              key={project.name}
+              variants={fadeInUp}
+              className="border border-[var(--accent)]/30 rounded p-4
+                         hover:border-[var(--accent)]/70 hover:-translate-y-0.5
+                         transition-all duration-200"
+            >
+              <div className="text-[var(--accent)] font-bold text-glow-sm mb-2">
+                {project.name}
+              </div>
+              <div className="text-[var(--text)] text-sm leading-relaxed mb-3">
+                {project.description}
+              </div>
+              <div className="text-[var(--text-dim)] text-xs font-mono">
+                {project.tech}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ══════════ Section 5: Certifications + Languages ══════════ */}
+      <section>
+        <CommandLine command="cat credentials.json" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Certifications */}
+          <motion.div
+            className="border border-[var(--accent)]/40 rounded p-5"
+            variants={slideInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
+              <span>│</span> CERTIFICATIONS
+            </div>
+            <div className="space-y-3">
+              {profile.certifications.map((cert) => (
+                <div key={cert.name} className="flex items-start gap-2 text-sm">
+                  <span className="text-[var(--accent)] shrink-0">[✓]</span>
+                  <div>
+                    <span className="text-[var(--text)]">{cert.name}</span>
+                    <span className="text-[var(--text-dim)]">
+                      {' '}
+                      — {cert.issuer}, {cert.year}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Languages */}
+          <motion.div
+            className="border border-[var(--accent)]/40 rounded p-5"
+            variants={slideInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
+              <span>│</span> LANGUAGES
+            </div>
+            <div className="space-y-3 font-mono text-sm">
+              {profile.languages.map((lang) => {
+                const level = languageLevelMap[lang.level] ?? 50;
+                return (
+                  <div key={lang.name} className="flex items-center gap-3">
+                    <span className="text-[var(--text)] w-24 shrink-0">
+                      {lang.name}
+                    </span>
+                    <AnimatedBar level={level} delay={200} barWidth={10} />
+                    <span className="text-[var(--text-dim)] text-xs shrink-0">
+                      {lang.level}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════ Section 6: Availability Status ══════════ */}
+      <section>
+        <CommandLine command="uptime" />
+        <motion.div
+          className="border border-[var(--accent)]/30 rounded p-5"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+            <div className="flex items-center gap-2">
+              <motion.span
+                className="inline-block w-2.5 h-2.5 rounded-full bg-[var(--accent)]"
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ boxShadow: '0 0 8px var(--accent)' }}
+              />
+              <span className="text-[var(--accent)] font-bold text-glow-sm">
+                Online
+              </span>
+            </div>
+            <span className="text-[var(--text)] text-sm">
+              STATUS: OPEN TO OPPORTUNITIES · UPTIME: 10+ yrs
+            </span>
+          </div>
+          <AvailabilityBar />
+        </motion.div>
+      </section>
+    </div>
+  );
+}
+
+// ── Availability Bar ────────────────────────────────────────────────────
+
+function AvailabilityBar() {
+  const [width, setWidth] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    const timeout = setTimeout(() => setWidth(100), 100);
+    return () => clearTimeout(timeout);
+  }, [inView]);
+
+  return (
+    <div
+      ref={ref}
+      className="w-full h-3 rounded-full bg-[var(--bg-secondary)] border border-[var(--accent)]/20 overflow-hidden"
+    >
+      <div
+        className="h-full rounded-full transition-all duration-[1500ms] ease-out"
+        style={{
+          width: `${width}%`,
+          backgroundColor: 'color-mix(in srgb, var(--accent) 70%, transparent)',
+          boxShadow: '0 0 12px var(--accent), 0 0 4px var(--accent)',
+        }}
+      />
     </div>
   );
 }
