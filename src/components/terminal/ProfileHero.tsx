@@ -132,6 +132,17 @@ const infoLines = [
   { label: 'Memory', value: 'Unlimited Learning' },
 ];
 
+const condensedExperience = [
+  { role: 'Senior Technical Lead', company: 'Current', period: '2022 – Present' },
+  { role: 'Software Architect', company: 'Previous', period: '2019 – 2022' },
+  { role: 'Lead Developer', company: 'Earlier', period: '2016 – 2019' },
+];
+
+const condensedEducation = [
+  { degree: 'M.Sc. Computer Science', school: 'University', year: '2016' },
+  { degree: 'B.Sc. Computer Science', school: 'University', year: '2014' },
+];
+
 function Prompt() {
   return (
     <span className="whitespace-nowrap">
@@ -188,58 +199,109 @@ export function ProfileHero() {
           <span className="text-[var(--accent)] text-glow-sm">$</span> neofetch
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 items-start">
-          {/* Portrait */}
-          <div className="hidden md:block shrink-0">
-            <div className="relative w-52 h-60 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden">
-              {imgError ? (
-                <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                  <div className="text-[var(--accent)] text-6xl font-bold text-glow tracking-widest">
-                    KS
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* Left group: Portrait + System Info */}
+          <div className="flex flex-col md:flex-row gap-8 items-start shrink-0">
+            {/* Portrait */}
+            <div className="hidden md:block shrink-0">
+              <div className="relative w-52 h-60 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden">
+                {imgError ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+                    <div className="text-[var(--accent)] text-6xl font-bold text-glow tracking-widest">
+                      KS
+                    </div>
+                    <div className="text-[var(--text-dim)] text-sm tracking-wider">
+                      krishan.run
+                    </div>
                   </div>
-                  <div className="text-[var(--text-dim)] text-sm tracking-wider">
-                    krishan.run
-                  </div>
-                </div>
-              ) : (
-                <img
-                  src="/profile.jpg"
-                  alt={profile.name}
-                  onError={() => setImgError(true)}
-                  className="w-full h-full object-cover"
+                ) : (
+                  <img
+                    src="/profile.jpg"
+                    alt={profile.name}
+                    onError={() => setImgError(true)}
+                    className="w-full h-full object-cover"
+                    style={{
+                      filter:
+                        'grayscale(1) brightness(1.3) sepia(1) hue-rotate(80deg) saturate(5) contrast(1.4)',
+                    }}
+                  />
+                )}
+                <div
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    filter:
-                      'grayscale(1) brightness(1.3) sepia(1) hue-rotate(80deg) saturate(5) contrast(1.4)',
+                    background:
+                      'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
                   }}
                 />
-              )}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
-                }}
-              />
+              </div>
+            </div>
+
+            {/* System Info */}
+            <div className="font-mono min-w-0">
+              <div className="space-y-0.5 leading-relaxed">
+                {infoLines.map((line, i) => (
+                  <div key={i}>
+                    {line.label ? (
+                      <>
+                        <span className="text-[var(--accent)] font-bold text-glow-sm">
+                          {line.label}
+                        </span>
+                        <span className="text-[var(--text)]">: {line.value}</span>
+                      </>
+                    ) : (
+                      <span>&nbsp;</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* System Info */}
-          <div className="font-mono min-w-0">
-            <div className="space-y-0.5 leading-relaxed">
-              {infoLines.map((line, i) => (
-                <div key={i}>
-                  {line.label ? (
-                    <>
-                      <span className="text-[var(--accent)] font-bold text-glow-sm">
-                        {line.label}
+          {/* Right column: Experience + Education */}
+          <div className="flex-1 flex flex-col gap-5 min-w-0">
+            <div className="mb-1">
+              <Prompt />
+              <span>cat experience.json</span>
+            </div>
+
+            {/* Experience */}
+            <div className="border border-[var(--accent)]/50 rounded px-6 py-5">
+              <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
+                <span>│</span> EXPERIENCE
+              </div>
+              <div className="space-y-3 font-mono text-sm">
+                {condensedExperience.map((exp) => (
+                  <div key={exp.role} className="flex items-start gap-2">
+                    <span className="text-[var(--accent)] shrink-0">▸</span>
+                    <div>
+                      <span className="text-[var(--text)]">{exp.role}</span>
+                      <span className="text-[var(--text-dim)]">
+                        {' '}— {exp.company}, {exp.period}
                       </span>
-                      <span className="text-[var(--text)]">: {line.value}</span>
-                    </>
-                  ) : (
-                    <span>&nbsp;</span>
-                  )}
-                </div>
-              ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="border border-[var(--accent)]/50 rounded px-6 py-5">
+              <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
+                <span>│</span> EDUCATION
+              </div>
+              <div className="space-y-3 font-mono text-sm">
+                {condensedEducation.map((edu) => (
+                  <div key={edu.degree} className="flex items-start gap-2">
+                    <span className="text-[var(--accent)] shrink-0">▸</span>
+                    <div>
+                      <span className="text-[var(--text)]">{edu.degree}</span>
+                      <span className="text-[var(--text-dim)]">
+                        {' '}— {edu.school}, {edu.year}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
