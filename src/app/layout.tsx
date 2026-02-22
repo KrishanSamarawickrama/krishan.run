@@ -10,12 +10,12 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Krishan Samarawickrama | Terminal Portfolio',
+  title: 'krishan.run',
   description: 'Software Engineer portfolio — an interactive terminal experience. Type commands to explore skills, experience, projects, and more.',
   keywords: ['software engineer', 'portfolio', 'terminal', 'krishan', 'web developer', 'full stack'],
   authors: [{ name: 'Krishan Samarawickrama' }],
   openGraph: {
-    title: 'Krishan Samarawickrama | Terminal Portfolio',
+    title: 'krishan.run',
     description: 'Interactive terminal portfolio — explore my skills, experience, and projects through a CLI interface.',
     url: 'https://krishan.run',
     siteName: 'krishan.run',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Krishan Samarawickrama | Terminal Portfolio',
+    title: 'krishan.run',
     description: 'Interactive terminal portfolio — explore my skills, experience, and projects through a CLI interface.',
   },
   robots: {

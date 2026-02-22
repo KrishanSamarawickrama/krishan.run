@@ -54,6 +54,10 @@ export function Terminal() {
     if (!isBooting) {
       document.addEventListener('click', handleClick);
       focusInput();
+      // Reset scroll to top so hero is visible after boot
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = 0;
+      }
     }
     return () => document.removeEventListener('click', handleClick);
   }, [isBooting, focusInput, scrollRef]);
