@@ -52,7 +52,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
 
   return (
     <div
-      className="cursor-pointer min-h-screen flex flex-col items-center justify-center p-4"
+      className="cursor-pointer h-full flex flex-col items-center justify-center p-4"
       onClick={handleInteraction}
     >
       <pre className="text-[var(--accent)] text-xs sm:text-sm leading-tight whitespace-pre text-center">

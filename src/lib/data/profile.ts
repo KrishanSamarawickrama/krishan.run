@@ -7,7 +7,7 @@ export const profile = {
   email: 'Krishan.Samarawickrama@outlook.com',
   website: 'https://krishan.run',
   github: 'https://github.com/KrishanSamarawickrama',
-  linkedin: 'https://linkedin.com/in/krishansamarawickrama',
+  linkedin: 'https://linkedin.com/in/krishan-samarawickrama',
 
   summary: 'Technical Lead at Rootcode with over 10 years in software development. Skilled in C#, ASP.NET, SQL, Docker, and cloud technologies. Passionate about driving innovation and solving complex problems.',
 
@@ -249,7 +249,7 @@ export const profile = {
 
   social: [
     { name: 'GitHub', url: 'https://github.com/KrishanSamarawickrama', icon: '' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/krishansamarawickrama', icon: '' },
+    { name: 'LinkedIn', url: 'https://linkedin.com/in/krishan-samarawickrama', icon: '' },
     { name: 'Email', url: 'mailto:Krishan.Samarawickrama@outlook.com', icon: '' },
   ],
 };

@@ -53,7 +53,7 @@ export default function RootLayout({
             <h2>Skills</h2>
             <p>C#, .NET, ASP.NET, Azure, Angular, SQL Server, Docker, Power BI</p>
             <h2>Contact</h2>
-            <p>Email: Krishan.Samarawickrama@outlook.com | GitHub: github.com/KrishanSamarawickrama | LinkedIn: linkedin.com/in/krishansamarawickrama</p>
+            <p>Email: Krishan.Samarawickrama@outlook.com | GitHub: github.com/KrishanSamarawickrama | LinkedIn: linkedin.com/in/krishan-samarawickrama</p>
           </div>
         </noscript>
       </body>

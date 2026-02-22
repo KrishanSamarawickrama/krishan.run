@@ -62,15 +62,6 @@ export function Terminal() {
     return () => document.removeEventListener('click', handleClick);
   }, [isBooting, focusInput, scrollRef]);
 
-  if (isBooting) {
-    return (
-      <div className="h-screen bg-[var(--bg)] text-[var(--text)] font-mono">
-        <CRTEffect enabled={crtEnabled} />
-        <BootSequence onComplete={handleBootComplete} />
-      </div>
-    );
-  }
-
   return (
     <div
       className="h-screen w-screen max-w-[1440px] mx-auto p-2 md:p-5 bg-black box-border text-[var(--text)] font-mono"
@@ -94,37 +85,45 @@ export function Terminal() {
       <CRTEffect enabled={crtEnabled} />
       <MatrixRain enabled={theme.name === 'matrix'} />
 
-      {/* Main Content: Sidebar + Terminal */}
-      <div className="relative z-10 flex flex-1 min-h-0">
-        {/* Sidebar (desktop only) */}
-        <Sidebar onCommand={handleCommand} />
-
-        {/* Terminal Body */}
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto px-4 py-5 md:px-10 md:py-7"
-        >
-          <ProfileHero />
-
-          <TerminalOutput entries={outputHistory} />
-
-          <div className="mt-3 pb-20 md:pb-4">
-            <TerminalInput
-              value={input}
-              onChange={setInput}
-              onKeyDown={handleKeyDown}
-              inputRef={inputRef}
-              suggestions={suggestions}
-            />
-          </div>
+      {isBooting ? (
+        <div className="flex-1 overflow-hidden">
+          <BootSequence onComplete={handleBootComplete} />
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Main Content: Sidebar + Terminal */}
+          <div className="relative z-10 flex flex-1 min-h-0">
+            {/* Sidebar (desktop only) */}
+            <Sidebar onCommand={handleCommand} />
 
-      {/* Status Bar (desktop only) */}
-      <StatusBar />
+            {/* Terminal Body */}
+            <div
+              ref={scrollRef}
+              className="flex-1 overflow-y-auto px-4 py-5 md:px-10 md:py-7"
+            >
+              <ProfileHero />
 
-      {/* Mobile Nav (mobile only) */}
-      <MobileNav onCommand={handleCommand} />
+              <TerminalOutput entries={outputHistory} />
+
+              <div className="mt-3 pb-20 md:pb-4">
+                <TerminalInput
+                  value={input}
+                  onChange={setInput}
+                  onKeyDown={handleKeyDown}
+                  inputRef={inputRef}
+                  suggestions={suggestions}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Status Bar (desktop only) */}
+          <StatusBar />
+
+          {/* Mobile Nav (mobile only) */}
+          <MobileNav onCommand={handleCommand} />
+        </>
+      )}
       </div>
     </div>
   );
