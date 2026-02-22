@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTypingAnimation } from '@/hooks/useTypingAnimation';
 import { asciiBanner, bootMessages } from '@/lib/data/ascii-art';
 
@@ -9,26 +9,41 @@ interface BootSequenceProps {
 }
 
 export function BootSequence({ onComplete }: BootSequenceProps) {
+  const [waitingForKey, setWaitingForKey] = useState(false);
+
   const allLines = [
     ...asciiBanner.split('\n'),
     '',
     ...bootMessages,
   ];
 
+  const bannerLineCount = asciiBanner.split('\n').length;
+
+  const handleTypingDone = useCallback(() => {
+    setWaitingForKey(true);
+  }, []);
+
   const { displayedLines, isComplete, skip } = useTypingAnimation(allLines, {
     speed: 15,
-    onComplete,
+    onComplete: handleTypingDone,
   });
 
-  const handleClick = useCallback(() => {
-    if (!isComplete) skip();
-  }, [isComplete, skip]);
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (!isComplete && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) {
+  const handleInteraction = useCallback(() => {
+    if (waitingForKey) {
+      onComplete();
+    } else if (!isComplete) {
       skip();
     }
-  }, [isComplete, skip]);
+  }, [waitingForKey, isComplete, skip, onComplete]);
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (waitingForKey) {
+      e.preventDefault();
+      onComplete();
+    } else if (!isComplete && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) {
+      skip();
+    }
+  }, [waitingForKey, isComplete, skip, onComplete]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -37,26 +52,30 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
 
   return (
     <div
-      className="cursor-pointer min-h-screen flex flex-col justify-center p-4"
-      onClick={handleClick}
+      className="cursor-pointer min-h-screen flex flex-col items-center justify-center p-4"
+      onClick={handleInteraction}
     >
-      <pre className="text-[var(--accent)] text-xs sm:text-sm leading-tight whitespace-pre">
+      <pre className="text-[var(--accent)] text-xs sm:text-sm leading-tight whitespace-pre text-center">
         {displayedLines.map((line, i) => (
           <div key={i}>
-            {i < asciiBanner.split('\n').length ? (
+            {i < bannerLineCount ? (
               <span className="font-bold">{line}</span>
             ) : (
               <span className="text-[var(--text-dim)]">{line}</span>
             )}
           </div>
         ))}
-        <span className="animate-pulse">█</span>
+        {!waitingForKey && <span className="animate-pulse">█</span>}
       </pre>
-      {!isComplete && (
+      {waitingForKey ? (
+        <div className="text-[var(--accent)] text-sm mt-6 text-center animate-pulse">
+          Press any key to continue...
+        </div>
+      ) : !isComplete ? (
         <div className="text-[var(--text-dim)] text-xs mt-4 text-center">
           Press any key or click to skip...
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

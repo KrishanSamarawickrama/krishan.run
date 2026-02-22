@@ -1,8 +1,8 @@
 'use client';
 
 const mobileCommands = [
-  'help', 'about', 'skills', 'experience',
-  'projects', 'contact', 'neofetch', 'clear',
+  'skills', 'experience', 'projects', 'education',
+  'certs', 'contact', 'neofetch', 'clear',
 ];
 
 interface MobileNavProps {

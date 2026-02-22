@@ -8,7 +8,7 @@ export const projectsCommand: Command = {
   execute: () => {
     return {
       output: React.createElement('div', { className: 'space-y-3' },
-        React.createElement('div', { className: 'text-[var(--accent)] font-bold' }, '// Projects'),
+        React.createElement('div', { className: 'text-[var(--accent)] font-bold' }, '// Project Domains'),
         ...profile.projects.map((proj, i) =>
           React.createElement('div', { key: i, className: 'ml-2 space-y-0.5' },
             React.createElement('div', { className: 'text-[var(--accent)] font-bold' },
@@ -16,15 +16,6 @@ export const projectsCommand: Command = {
             ),
             React.createElement('div', null, `  │  ${proj.description}`),
             React.createElement('div', { className: 'text-[var(--text-dim)]' }, `  │  Tech: ${proj.tech}`),
-            proj.url && React.createElement('div', null,
-              '  │  ',
-              React.createElement('a', {
-                href: proj.url,
-                target: '_blank',
-                rel: 'noopener noreferrer',
-                className: 'text-[var(--accent)] underline hover:brightness-125',
-              }, proj.url),
-            ),
             React.createElement('div', { className: 'text-[var(--text-dim)]' }, '  └─'),
           )
         ),

@@ -15,8 +15,8 @@ export const neofetchCommand: Command = {
       { label: 'Website', value: 'krishan.run' },
       { label: 'OS', value: 'Portfolio v1.0.0' },
       { label: 'Shell', value: 'krishan-terminal' },
-      { label: 'Uptime', value: 'since 2016' },
-      { label: 'Languages', value: 'TypeScript, Python, Java' },
+      { label: 'Uptime', value: 'since 2013' },
+      { label: 'Languages', value: 'C#, .NET, Angular, SQL' },
       { label: 'Framework', value: 'Next.js 15' },
       { label: 'Theme', value: 'Phosphor Green' },
     ];

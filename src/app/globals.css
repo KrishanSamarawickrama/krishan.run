@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
+@theme inline {
+  --font-mono: var(--font-jetbrains-mono), 'Fira Code', 'Cascadia Code', Consolas, monospace;
+}
+
 :root {
-  --bg: #0a0e14;
-  --bg-secondary: #111820;
-  --text: #33ff33;
-  --text-dim: #1a8a1a;
-  --accent: #00ff88;
-  --prompt: #5599ff;
-  --error: #ff3333;
+  --bg: #0a1510;
+  --bg-secondary: #111d18;
+  --text: #c8e632;
+  --text-dim: #7da828;
+  --accent: #d4ff40;
+  --prompt: #7db8f0;
+  --error: #ff4444;
 }
 
 * {
@@ -22,23 +26,27 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background-color: #000000;
   color: var(--text);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 @media (max-width: 640px) {
   body {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 
 /* Text glow effect */
 .text-glow {
-  text-shadow: 0 0 8px var(--text), 0 0 2px var(--text);
+  text-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
+}
+
+.text-glow-sm {
+  text-shadow: 0 0 8px currentColor, 0 0 2px currentColor;
 }
 
 /* Selection */
@@ -53,7 +61,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -93,5 +101,5 @@ input {
 
 input::placeholder {
   color: var(--text-dim);
-  opacity: 0.5;
+  opacity: 0.6;
 }
