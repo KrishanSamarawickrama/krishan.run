@@ -8,6 +8,7 @@ import { certsCommand } from './certs';
 import { contactCommand } from './contact';
 import { projectsCommand } from './projects';
 import { neofetchCommand } from './neofetch';
+import { toolsCommand } from './tools';
 import { themeCommand } from './theme';
 import {
   whoamiCommand,
@@ -31,6 +32,7 @@ const commands = [
   certsCommand,
   contactCommand,
   projectsCommand,
+  toolsCommand,
   neofetchCommand,
   themeCommand,
   whoamiCommand,

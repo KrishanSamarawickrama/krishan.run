@@ -5,6 +5,7 @@ const fileTree = [
   { name: 'education.json', command: 'education', prefix: '── ' },  
   { name: 'skills.dart', command: 'skills', prefix: '── ' },  
   { name: 'projects.sh', command: 'projects', prefix: '── ' },
+  { name: 'tools.exe', command: 'tools', prefix: '── ' },
   { name: 'about.md', command: 'about', prefix: '── ' },
 ];
 

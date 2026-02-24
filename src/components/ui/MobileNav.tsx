@@ -1,7 +1,7 @@
 'use client';
 
 const mobileCommands = [
-  'skills', 'experience', 'projects', 'education',
+  'skills', 'experience', 'projects', 'tools', 'education',
   'certs', 'contact', 'neofetch', 'clear',
 ];
 

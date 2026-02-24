@@ -357,6 +357,23 @@ export const profile = {
     },
   ],
 
+  tools: [
+    {
+      name: 'Cloud Invoice Application',
+      description: 'A cloud-based application for generating invoices tailored for consultant services. Features social login, invoice creation with line items, PDF generation, and date/search filtering.',
+      url: 'https://invoice.krishan.run',
+      highlights: [
+        'Social login for users',
+        'Invoice creation with line items',
+        'PDF generation for invoices',
+        'View and filter invoices by date and search',
+        'Dockerized deployment with PostgreSQL database',
+      ],
+      tech: 'React, ASP.NET Minimal API, Docker, PostgreSQL, AWS',
+      status: 'live' as const,
+    },
+  ],
+
   languages: [
     { name: 'English', level: 'Full Professional' },
     { name: 'Sinhalese', level: 'Native or Bilingual' },
