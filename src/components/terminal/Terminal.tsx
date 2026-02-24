@@ -64,7 +64,7 @@ export function Terminal() {
 
   return (
     <div
-      className="h-screen w-screen max-w-[1440px] mx-auto p-2 md:p-5 bg-black box-border text-[var(--text)] font-mono"
+      className="h-screen w-screen max-w-[1600px] mx-auto p-2 md:p-5 bg-black box-border text-[var(--text)] font-mono"
     >
       <div className="w-full h-full bg-[var(--bg)] flex flex-col overflow-hidden rounded-lg border border-[var(--text-dim)]/30">
       {/* Terminal Title Bar */}

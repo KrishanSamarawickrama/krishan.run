@@ -73,15 +73,18 @@ export function useTerminal() {
     inputRef.current?.focus();
   }, []);
 
-  // Auto-scroll to the start of the latest command output
+  // Auto-scroll to the start of the latest command output, or to top on clear
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (scrollRef.current && outputHistory.length > 0) {
-      const lastId = outputHistory[outputHistory.length - 1].id;
-      const el = scrollRef.current.querySelector(`[data-entry-id="${lastId}"]`);
-      if (el) {
-        el.scrollIntoView({ block: 'start', behavior: 'smooth' });
-      }
+    if (!scrollRef.current) return;
+    if (outputHistory.length === 0) {
+      scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const lastId = outputHistory[outputHistory.length - 1].id;
+    const el = scrollRef.current.querySelector(`[data-entry-id="${lastId}"]`);
+    if (el) {
+      el.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
   }, [outputHistory]);
 

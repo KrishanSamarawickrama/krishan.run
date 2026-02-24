@@ -215,7 +215,7 @@ export function ProfileHero() {
             {/* Portrait */}
             <div className="shrink-0">
               <motion.div
-                className="portrait-glow relative w-40 h-48 sm:w-48 sm:h-56 md:w-64 md:h-72 lg:w-72 lg:h-80 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden"
+                className="portrait-glow relative w-48 h-56 sm:w-56 sm:h-64 md:w-72 md:h-80 lg:w-80 lg:h-96 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden"
                 variants={portraitReveal}
                 initial="hidden"
                 animate="visible"
