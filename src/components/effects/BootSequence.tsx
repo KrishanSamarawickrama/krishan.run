@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTypingAnimation } from '@/hooks/useTypingAnimation';
 import { asciiBanner, bootMessages } from '@/lib/data/ascii-art';
 
@@ -10,6 +10,9 @@ interface BootSequenceProps {
 
 export function BootSequence({ onComplete }: BootSequenceProps) {
   const [waitingForKey, setWaitingForKey] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   const allLines = [
     ...asciiBanner.split('\n'),
@@ -24,9 +27,27 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
   }, []);
 
   const { displayedLines, isComplete, skip } = useTypingAnimation(allLines, {
-    speed: 15,
+    speed: 12,
     onComplete: handleTypingDone,
   });
+
+  // Auto-continue countdown
+  useEffect(() => {
+    if (!waitingForKey) return;
+
+    const timer = setInterval(() => {
+      setCountdown(prev => (prev <= 1 ? 0 : prev - 1));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [waitingForKey]);
+
+  // Trigger onComplete when countdown reaches 0
+  useEffect(() => {
+    if (countdown === 0 && waitingForKey) {
+      onCompleteRef.current();
+    }
+  }, [countdown, waitingForKey]);
 
   const handleInteraction = useCallback(() => {
     if (waitingForKey) {
@@ -69,7 +90,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
       </pre>
       {waitingForKey ? (
         <div className="text-[var(--accent)] text-sm mt-6 text-center animate-pulse">
-          Press any key to continue...
+          Press any key to continue... ({countdown})
         </div>
       ) : !isComplete ? (
         <div className="text-[var(--text-dim)] text-xs mt-4 text-center">

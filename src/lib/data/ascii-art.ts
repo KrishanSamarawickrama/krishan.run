@@ -36,7 +36,10 @@ export const faceAscii = `          ▄▓▓▓▓▓▓▓▓▓▓▓▄
 
 export const bootMessages = [
   'BIOS v3.14 - krishan.run terminal',
+  'Checking memory... 16384 MB OK',
   'Loading kernel modules... OK',
+  'Initializing network interface... OK',
   'Mounting /dev/portfolio... OK',
+  'Starting services... OK',
   'System ready.',
 ];
