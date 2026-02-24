@@ -46,6 +46,9 @@ export const contactCommand: Command = {
             }, profile.website),
           ),
         ),
+        React.createElement('div', { className: 'text-[var(--text-dim)] mt-2' },
+          "Tip: Type 'about' for full bio + contact info."
+        ),
       ),
     };
   },

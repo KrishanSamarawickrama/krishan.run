@@ -9,15 +9,16 @@ export const profile = {
   github: 'https://github.com/KrishanSamarawickrama',
   linkedin: 'https://linkedin.com/in/krishan-samarawickrama',
 
-  summary: 'Technical Lead at Rootcode with over 10 years in software development. Skilled in C#, ASP.NET, SQL, Docker, and cloud technologies. Passionate about driving innovation and solving complex problems.',
+  summary: 'Senior Technical Lead at Rootcode with over 10 years building enterprise software across healthcare, government, and identity domains. Skilled in C#, .NET, Azure, SQL, and Docker. MSc research focused on Green AI and sustainable LLM practices.',
 
   about: [
-    'Technical Lead at Rootcode with over 10 years in',
-    'software development. Skilled in C#, ASP.NET, SQL,',
-    'Docker, and cloud technologies.',
+    'Senior Technical Lead at Rootcode with over a decade of experience building enterprise-grade software across healthcare, government, identity, and financial domains. I lead architecture decisions, drive cloud-native strategy on Azure, and mentor engineering teams delivering scalable solutions.',
     '',
-    'Passionate about driving innovation and solving',
-    'complex problems.',
+    'My journey spans from foundational .NET and SQL development through increasingly complex enterprise challenges — ERP systems and insurance automation at Softlogic Holdings, biometric identity solutions leveraging Azure Cognitive Services at Data Capture Experts, and into technical leadership at Rootcode where I now oversee architecture and delivery at scale.',
+    '',
+    'I hold a B.Sc. in Computer Science from University College Dublin and recently completed my M.Sc. in Data Science at Cardiff Metropolitan University, where my research focused on Green AI — exploring how prompt engineering optimization can reduce the energy footprint of large language models.',
+    '',
+    'Beyond engineering, I am active in community initiatives — I served as Program Manager at IMCD managing projects like "Color a Dream" and "Needy Readers", volunteered with the United Nations, and coordinated at FITIS. I am passionate about the .NET ecosystem, cloud computing, data science, and community tech.',
   ],
 
   stats: [

@@ -315,7 +315,135 @@ export function ProfileHero() {
         </motion.div>
       </section>
 
-      {/* ══════════ Section 2: Top Skills Tags ══════════ */}
+      {/* ══════════ Section 2: About Me + Contact ══════════ */}
+      <section>
+        <CommandLine command="cat ~/about.md" />
+        <motion.div
+          className="border border-[var(--accent)]/40 rounded px-4 py-4 md:px-8 md:py-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* About header */}
+          <div className="text-[var(--accent)] font-bold mb-4 text-glow-sm flex items-center gap-2">
+            <span>│</span> ABOUT ME
+          </div>
+
+          {/* Bio paragraphs */}
+          <motion.div
+            className="space-y-4 font-mono text-sm leading-relaxed"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {profile.about.map((line, i) =>
+              line === '' ? null : (
+                <motion.p key={i} variants={fadeInUp} className="text-[var(--text)]">
+                  {line}
+                </motion.p>
+              )
+            )}
+          </motion.div>
+
+          {/* Interests */}
+          <div className="mt-6 mb-6">
+            <div className="text-[var(--accent)] font-bold mb-3 text-glow-sm flex items-center gap-2">
+              <span>│</span> INTERESTS
+            </div>
+            <motion.div
+              className="flex flex-wrap gap-2"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {profile.interests.map((interest) => (
+                <motion.span
+                  key={interest}
+                  variants={fadeInScale}
+                  className="px-3 py-1 border border-[var(--text-dim)]/40 rounded text-xs text-[var(--text-dim)] font-mono"
+                >
+                  {interest}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-[var(--accent)]/20 my-4" />
+
+          {/* Contact */}
+          <div className="text-[var(--accent)] font-bold mb-3 text-glow-sm flex items-center gap-2">
+            <span>│</span> CONTACT
+          </div>
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-sm"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <motion.div variants={fadeInUp} className="flex items-start gap-2">
+              <span className="text-[var(--accent)] shrink-0">▸</span>
+              <div>
+                <span className="text-[var(--text-dim)]">Email </span>
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="text-[var(--accent)] hover:underline hover:brightness-125"
+                >
+                  {profile.email}
+                </a>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="flex items-start gap-2">
+              <span className="text-[var(--accent)] shrink-0">▸</span>
+              <div>
+                <span className="text-[var(--text-dim)]">LinkedIn </span>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--accent)] hover:underline hover:brightness-125"
+                >
+                  krishan-samarawickrama
+                </a>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="flex items-start gap-2">
+              <span className="text-[var(--accent)] shrink-0">▸</span>
+              <div>
+                <span className="text-[var(--text-dim)]">GitHub </span>
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--accent)] hover:underline hover:brightness-125"
+                >
+                  KrishanSamarawickrama
+                </a>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="flex items-start gap-2">
+              <span className="text-[var(--accent)] shrink-0">▸</span>
+              <div>
+                <span className="text-[var(--text-dim)]">Web </span>
+                <a
+                  href={profile.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--accent)] hover:underline hover:brightness-125"
+                >
+                  krishan.run
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ══════════ Section 3: Top Skills Tags ══════════ */}
       <section>
         <CommandLine command="echo $SKILLS" />
         <motion.div
