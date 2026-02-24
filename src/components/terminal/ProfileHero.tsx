@@ -502,22 +502,29 @@ export function ProfileHero() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {profile.projects.map((project) => (
+          {profile.projectDomains.map((domain) => (
             <motion.div
-              key={project.name}
+              key={domain.name}
               variants={fadeInUp}
               className="border border-[var(--accent)]/30 rounded px-4 py-4 md:px-8 md:py-6
                          hover:border-[var(--accent)]/70 hover:-translate-y-0.5
                          transition-all duration-200"
             >
-              <div className="text-[var(--accent)] font-bold text-glow-sm mb-2">
-                {project.name}
+              <div className="text-[var(--accent)] font-bold text-glow-sm mb-1">
+                {domain.name}
+              </div>
+              <div className="text-[var(--text-dim)] text-xs font-mono mb-2">
+                {domain.projects.length} {domain.projects.length === 1 ? 'project' : 'projects'}
               </div>
               <div className="text-[var(--text)] text-sm leading-relaxed mb-3">
-                {project.description}
+                {domain.description}
               </div>
-              <div className="text-[var(--text-dim)] text-xs font-mono">
-                {project.tech}
+              <div className="flex flex-wrap gap-1.5">
+                {domain.tech.split(', ').map((t) => (
+                  <span key={t} className="text-[var(--accent)] text-xs font-mono">
+                    [ {t} ]
+                  </span>
+                ))}
               </div>
             </motion.div>
           ))}
