@@ -204,7 +204,7 @@ export function ProfileHero() {
           <div className="flex flex-col md:flex-row gap-8 items-start shrink-0">
             {/* Portrait */}
             <div className="hidden md:block shrink-0">
-              <div className="relative w-52 h-60 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden">
+              <div className="relative w-56 h-64 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden shadow-[0_0_12px_var(--accent)]/20">
                 {imgError ? (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2">
                     <div className="text-[var(--accent)] text-6xl font-bold text-glow tracking-widest">
@@ -222,7 +222,7 @@ export function ProfileHero() {
                     className="w-full h-full object-cover"
                     style={{
                       filter:
-                        'grayscale(1) brightness(1.1) sepia(0.4) hue-rotate(80deg) saturate(1.5) contrast(1.1)',
+                        'grayscale(1) brightness(1.3) contrast(1.15)',
                     }}
                   />
                 )}
