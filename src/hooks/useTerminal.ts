@@ -73,11 +73,15 @@ export function useTerminal() {
     inputRef.current?.focus();
   }, []);
 
-  // Auto-scroll to bottom on new output
+  // Auto-scroll to the start of the latest command output
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (scrollRef.current && outputHistory.length > 0) {
+      const lastId = outputHistory[outputHistory.length - 1].id;
+      const el = scrollRef.current.querySelector(`[data-entry-id="${lastId}"]`);
+      if (el) {
+        el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
     }
   }, [outputHistory]);
 

@@ -11,7 +11,7 @@ export function TerminalOutput({ entries }: TerminalOutputProps) {
   return (
     <div className="space-y-3">
       {entries.map((entry) => (
-        <div key={entry.id}>
+        <div key={entry.id} data-entry-id={entry.id}>
           <div className="border-t border-dashed border-[var(--text-dim)]/20 my-4" />
           <div className="space-y-1">
             <div className="flex items-start">

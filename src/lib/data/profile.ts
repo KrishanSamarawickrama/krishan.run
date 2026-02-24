@@ -172,7 +172,7 @@ export const profile = {
       degree: 'M.Sc. Data Science',
       institution: 'Cardiff Metropolitan University',
       period: 'Jun 2024 - Dec 2025',
-      details: 'Advanced data science and machine learning',
+      details: 'Research: Green AI — prompt engineering optimization to reduce LLM energy footprint',
     },
     {
       degree: 'B.Sc. Computer Science',
@@ -208,6 +208,7 @@ export const profile = {
   ],
 
   honors: [
+    'M.Sc. Data Science — Merit',
     'B.Sc. Computer Science — Second Class Honours Grade 1',
     'Diploma in Computer Systems Design — Distinction',
   ],
