@@ -51,6 +51,20 @@ body {
   text-shadow: 0 0 8px currentColor, 0 0 2px currentColor;
 }
 
+/* Portrait glow pulse */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 255, 64, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 255, 64, 0.3);
+  }
+}
+
+.portrait-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
 /* Selection */
 ::selection {
   background: var(--accent);

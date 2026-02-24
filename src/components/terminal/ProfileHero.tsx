@@ -31,6 +31,16 @@ const slideInRight = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
 };
 
+const portraitReveal = {
+  hidden: { opacity: 0, scale: 0.9, filter: 'blur(8px)' },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 0.7, ease: 'easeOut' as const },
+  },
+};
+
 // ── Helpers ──────────────────────────────────────────────────────────────
 
 const languageLevelMap: Record<string, number> = {
@@ -201,13 +211,18 @@ export function ProfileHero() {
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Left group: Portrait + System Info */}
-          <div className="flex flex-col md:flex-row gap-8 items-start shrink-0">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start shrink-0">
             {/* Portrait */}
-            <div className="hidden md:block shrink-0">
-              <div className="relative w-56 h-64 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden shadow-[0_0_12px_var(--accent)]/20">
+            <div className="shrink-0">
+              <motion.div
+                className="portrait-glow relative w-40 h-48 sm:w-48 sm:h-56 md:w-64 md:h-72 lg:w-72 lg:h-80 border border-[var(--accent)]/40 rounded bg-[var(--bg-secondary)] overflow-hidden"
+                variants={portraitReveal}
+                initial="hidden"
+                animate="visible"
+              >
                 {imgError ? (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                    <div className="text-[var(--accent)] text-6xl font-bold text-glow tracking-widest">
+                    <div className="text-[var(--accent)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-glow tracking-widest">
                       KS
                     </div>
                     <div className="text-[var(--text-dim)] text-sm tracking-wider">
@@ -219,14 +234,22 @@ export function ProfileHero() {
                     src="/images/profile.png"
                     alt={profile.name}
                     onError={() => setImgError(true)}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
                     style={{
                       filter:
                         'grayscale(1) brightness(1.3) contrast(1.15)',
                     }}
                   />
                 )}
-              </div>
+                {/* Scanline overlay for terminal aesthetic */}
+                <div
+                  className="absolute inset-0 pointer-events-none z-10"
+                  style={{
+                    background:
+                      'repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 3px)',
+                  }}
+                />
+              </motion.div>
             </div>
 
             {/* System Info */}

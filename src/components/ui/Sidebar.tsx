@@ -1,11 +1,11 @@
 'use client';
 
 const fileTree = [
-  { name: 'about.md', command: 'about', prefix: '── ' },
-  { name: 'skills.json', command: 'skills', prefix: '── ' },
   { name: 'experience.json', command: 'experience', prefix: '── ' },
-  { name: 'education.json', command: 'education', prefix: '── ' },
-  { name: 'projects/', command: 'projects', prefix: '── ' },
+  { name: 'education.json', command: 'education', prefix: '── ' },  
+  { name: 'skills.dart', command: 'skills', prefix: '── ' },  
+  { name: 'projects.sh', command: 'projects', prefix: '── ' },
+  { name: 'about.md', command: 'about', prefix: '── ' },
 ];
 
 interface SidebarProps {
