@@ -4,5 +4,4 @@ node_modules
 .gitignore
 README.md
 .dockerignore
-docs
 deploy

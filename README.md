@@ -64,8 +64,7 @@ Type `help` in the terminal to see all available commands, including:
 ## Project Structure
 
 ```
-deploy/             # Dockerfile
-docs/               # PDFs and documents
+deploy/             # Dockerfile and build scripts
 public/             # Static assets (images, robots.txt, sitemap)
 src/
 ├── app/
